@@ -7,7 +7,11 @@ a book more popular than others.
 This analysis consisted of:
 
 1- Data Exploration
+
 2- Data Cleaning
+
 3- Data Visualization
+
 4- Data Preprocessing
+
 5- Machine Learning Model
