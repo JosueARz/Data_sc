@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 
 from sklearn import preprocessing
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn import metrics
 
 # Read data
 
@@ -120,6 +123,13 @@ data = pd.concat([data, enc_lang], axis = 1)
 correlacion = data.corr()
 
 
+# Machine Learning Model
+
+# divide the data into attributes and labels
+X = data.drop(['average_rating', 'language_code', 'isbn'], axis = 1)
+y = data['average_rating']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 
 
@@ -130,8 +140,3 @@ correlacion = data.corr()
 
 
 
-
-
-
-
-Feature Engineering
