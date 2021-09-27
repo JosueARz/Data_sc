@@ -4,6 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 %matplotlib inline
 
+from sklearn import preprocessing
+
 # Read data
 
 data = pd.read_csv('books.csv', error_bad_lines=False)
@@ -86,3 +88,31 @@ sns.boxplot(x=data['ratings_count'])
 
 # find ratings count outliers
 sns.boxplot(x=data['text_reviews_count'])
+
+
+
+#Feature Engineering
+
+# encode title column
+le = preprocessing.LabelEncoder()
+data['title'] = le.fit_transform(data['title'])
+
+# encode authors column
+data['authors'] = le.fit_transform(data['authors'])
+
+# encode language column
+enc_lang = pd.get_dummies(data['language_code'])
+data = pd.concat([data, enc_lang], axis = 1)
+
+correlacion = data.corr()
+
+# Machine Learning Model
+
+
+
+
+
+
+
+
+
