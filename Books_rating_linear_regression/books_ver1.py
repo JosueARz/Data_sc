@@ -10,17 +10,21 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
 # Read data
-
 data = pd.read_csv('books.csv', error_bad_lines=False)
 
 # Data Exploration
-
-data.head()              
+data.head()  
+            
 data.shape               
+
 data.describe()
+
 data.info()
+
 data.isnull().any()      
+
 data.duplicated().any() 
+
 sns.heatmap(data.isnull())
 
 sns.barplot(data['average_rating'].value_counts().head(20).index, data['average_rating'].value_counts().head(20))
@@ -77,8 +81,8 @@ plt.xlabel('Number of Publications')
 # visualise a bivariate distribution between ratings & no. of pages
 sns.jointplot(x = 'average_rating', y = '  num_pages', data = data)
 
-# visualise a bivariate distribution between ratings & no. of reviews
-sns.jointplot(x = 'average_rating', y = 'text_reviews_count', data = data)
+    # visualise a bivariate distribution between ratings & no. of reviews
+    sns.jointplot(x = 'average_rating', y = 'text_reviews_count', data = data)
 
 
 # Data preprocessing

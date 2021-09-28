@@ -86,40 +86,66 @@ sns.jointplot(x = 'average_rating', y = 'text_reviews_count', data = data)
 
 # find no. of pages outliers
 sns.boxplot(x=data['  num_pages'])   
+
 np.percentile(data['  num_pages'],[99])  
+
 np.percentile(data['  num_pages'],[99])[0] 
+
 uv = np.percentile(data['  num_pages'],[99])[0] 
+
 datos_mayores_que_uv =data[data['  num_pages'] > uv]
+
 datos_mayores_que_uv   
+
 data['  num_pages'][(data['  num_pages']> 3*uv)] = 3*uv
+
 datos_mayores_que_uv =data[data['  num_pages'] > uv]
+
 datos_mayores_que_uv
 sns.boxplot(x=data['  num_pages'])  
 
  
 # find ratings count outliers
 sns.boxplot(x=data['ratings_count'])
+
 np.percentile(data['ratings_count'],[99])  
+
 np.percentile(data['ratings_count'],[99])[0] 
+
 uw = np.percentile(data['ratings_count'],[99])[0] 
+
 datos_mayores_que_uw =data[data['ratings_count'] > uw]
+
 datos_mayores_que_uw   
+
 data['ratings_count'][(data['ratings_count']> 3*uw)] = 3*uw
+
 datos_mayores_que_uw =data[data['ratings_count'] > uw]
+
 datos_mayores_que_uw
+
 sns.boxplot(x=data['ratings_count']) 
 
 
 # find ratings count outliers
 sns.boxplot(x=data['text_reviews_count'])       
+
 np.percentile(data['text_reviews_count'],[99])  
+
 np.percentile(data['text_reviews_count'],[99])[0] 
+
 ux = np.percentile(data['text_reviews_count'],[99])[0] 
+
 datos_mayores_que_ux =data[data['text_reviews_count'] > ux]
+
 datos_mayores_que_ux   
+
 data['text_reviews_count'][(data['text_reviews_count']> 3*ux)] = 3*ux
+
 datos_mayores_que_ux =data[data['text_reviews_count'] > ux]
+
 datos_mayores_que_ux
+
 sns.boxplot(x=data['text_reviews_count']) 
 
 
