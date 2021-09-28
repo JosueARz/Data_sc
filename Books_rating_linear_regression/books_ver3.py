@@ -8,6 +8,7 @@ from sklearn import preprocessing
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
+from sklearn.metrics import r2_score
 
 # Read data
 
@@ -15,11 +16,11 @@ data = pd.read_csv('books.csv', error_bad_lines=False)
 
 # Data Exploration
 
-data.head()              #data5
-data.shape               #datash
-data.describe()          #datad
+data.head()              
+data.shape               
+data.describe()          
 data.info()
-data.isnull().any()      #nul
+data.isnull().any()      
 data.duplicated().any() 
 sns.heatmap(data.isnull())
 
@@ -52,7 +53,6 @@ plt.title('Most Popular Language')
 plt.ylabel('Counts')
 plt.xticks(rotation = 90)
 data['language_code'].value_counts().head(6).plot(kind = 'pie', autopct='%1.1f%%', figsize=(9, 9)).legend()
-# el 95.7 corresponde al idioma ingles, se espera que los mejores rankings esten en ingles
 
 # authors with smallets rated books
 plt.figure(figsize=(10, 5))
@@ -137,13 +137,44 @@ data['authors'] = le.fit_transform(data['authors'])
 enc_lang = pd.get_dummies(data['language_code'])
 data = pd.concat([data, enc_lang], axis = 1)
 
+#encode publisher
+data['publisher'] = le.fit_transform(data['publisher'])
+
+#encode publication_date
+data['publication_date'] = le.fit_transform(data['publication_date'])
+
 correlacion = data.corr()
 
 
 # Machine Learning Model
 
 # divide the data into attributes and labels
-X = data.drop(['average_rating', 'language_code', 'isbn'], axis = 1)
+X = data.drop(['average_rating', 'language_code', 'isbn', 'isbn13'], axis = 1)
+
 y = data['average_rating']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+'X_train: ', X_train.shape
+'X_test: ',X_test.shape
+'y_train: ',y_train.shape
+'y_test: ',y_test.shape
+
+lr = LinearRegression()
+
+lr.fit(X_train, y_train)
+
+predictions = lr.predict(X_test)
+
+pred = pd.DataFrame({'Actual': y_test.tolist(), 'Predicted': predictions.tolist()}).head(25)
+
+pred.head(10)
+
+# visualise the above comparison result
+pred.plot(kind='bar', figsize=(13, 7))
+
+'MAE:', metrics.mean_absolute_error(y_test, predictions)
+
+'MSE:', metrics.mean_squared_error(y_test, predictions)
+
+'RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions))
